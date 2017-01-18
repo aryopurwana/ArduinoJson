@@ -24,8 +24,10 @@ struct ArduinoStreamTraits {
     Iterator(Stream& stream) : _stream(stream) {}
 
     char next() {
-      int n = _stream.read();
-      return n >= 0 ? static_cast<char>(n) : '\0';
+      // don't use _stream.read() as it ignores the timeout
+      char c = 0;
+      _stream.readBytes(&c, 1);
+      return c;
     }
   };
 };
