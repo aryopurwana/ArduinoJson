@@ -76,3 +76,10 @@ TEST(StdStream_Tests, ParseObject) {
   ASSERT_EQ(1, obj.size());
   ASSERT_STREQ("world", obj["hello"]);
 }
+
+TEST(StdStream_Tests, ShouldNotReadPastTheEnd) {
+  std::istringstream json("{}!");
+  DynamicJsonBuffer jsonBuffer;
+  jsonBuffer.parseObject(json);
+  ASSERT_EQ('!', json.get());
+}
