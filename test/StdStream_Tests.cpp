@@ -78,8 +78,8 @@ TEST(StdStream_Tests, ParseObject) {
 }
 
 TEST(StdStream_Tests, ShouldNotReadPastTheEnd) {
-  std::istringstream json("{}!");
+  std::istringstream json("{}123");
   DynamicJsonBuffer jsonBuffer;
   jsonBuffer.parseObject(json);
-  ASSERT_EQ('!', json.get());
+  ASSERT_EQ('1', json.get());
 }

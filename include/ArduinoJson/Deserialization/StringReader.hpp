@@ -20,20 +20,23 @@ class StringReader {
 
  public:
   StringReader(const TIterator& input) : _input(input) {
-    _current = _input.next();
-    _next = _input.next();
+    _current = 0;
+    _next = 0;
   }
 
   void move() {
     _current = _next;
-    _next = _input.next();
+    _next = 0;
   }
 
-  char current() const {
+  char current() {
+    if (!_current) _current = _input.next();
     return _current;
   }
 
-  char next() const {
+  char next() {
+    // assumes that current() has been called
+    if (!_next) _next = _input.next();
     return _next;
   }
 };
